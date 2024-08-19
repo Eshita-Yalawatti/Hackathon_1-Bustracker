@@ -28,12 +28,14 @@ Features of the current website are :
 
 Features under development are :
 
-- live location mapping of the admin
+- live location mapping of the admin (status: map/route display-done, live location fetching-done, tracking and displaying live location-under development)
 
-- pining of the preferred bus stops which is unique to every user
+- pining of the preferred bus stops which is unique to every user (status: preferrence data collection-done, storage-almost done, visualisation of preference data(pining it to the map)- 
+  under development. )
 
-- calculating and displaying the estimated time taken by the bus to reach the preferred bus stop
+- calculating and displaying the estimated time taken by the bus to reach the preferred bus stop (status : estimation api-found, integrating the api-under development)
 
-- notification is sent to the admin panel but sending it to the users interface is under development
+- notification is sent to the admin panel but sending it to the users interface is under development ( status : user notification [html+css]- done, notification backend- under 
+  developmet )
 
-- store the data of login, preferrred bus stops, etc in the local storage
+- store the data of login, preferrred bus stops, etc in the local storage (status: almost done)
