@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Driver Admin Panel</title>
+    <link rel="stylesheet" href="styles/admin.css" />
+</head>
+<body>
+
+    <header class="admin-login">
+        <h1>Admin Login</h1>
+    </header>
+
+    <section class="home">
+        <div class="form_container">
+            <!--Login Form-->
+            <div class="login_form">
+                <form id="loginForm">
+                    <h2>Login</h2>
+                    <div class="input_box">
+                        <input type="text" id="username" placeholder="Enter your Username" required>
+                    </div>
+
+                    <div class="input_box">
+                        <input type="password" id="password" placeholder="Enter your Password" required>
+                        <i class="uil uil-eye-slash pw_hide"></i>
+                    </div>
+
+                    <button type="submit" class="button">Login Now</button>
+                </form>
+                <div id="login-error" style="color:red;"></div> <!-- Error message div -->
+            </div>
+        </div>
+    </section>
+
+    <script src="scripts/admin.js"></script>
+    
+</body>
+</html>

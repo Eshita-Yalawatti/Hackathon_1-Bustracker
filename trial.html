@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Location Tracking with Geoapify and Leaflet</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        /* Reset default styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 80px;
+            background-color: rgba(23, 23, 168, 0.822);
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 35px;
+            flex: 1;
+            text-align: center;
+            margin-right: 150px;
+        }
+
+        .profile-icon {
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: bold;
+            color: rgba(23, 23, 168, 0.822);
+            position: relative; /* Added for better positioning */
+        }
+
+        /* Map Section */
+        #map-section {
+            height: calc(100vh - 160px); /* Adjust height based on header and footer */
+            width: 100%;
+            margin-top: 80px; /* Margin to push map below header */
+            position: relative;
+        }
+
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+
+        /* Footer Styles */
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 80px;
+            background-color: rgba(23, 23, 168, 0.822);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Profile Popup */
+        .profile-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 20px;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+        }
+
+        .popup-content {
+            text-align: center;
+        }
+
+        .close-btn {
+            cursor: pointer;
+            float: right;
+            font-size: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 18px;
+            }
+            .profile-icon {
+                width: 40px;
+                height: 40px;
+            }
+            footer {
+                height: 60px;
+                padding: 10px;
+            }
+            .profile-popup {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="profile-icon" id="profile-icon">Profile</div>
+        <h1>Track Your Bus!</h1>
+    </header>
+
+    <section id="map-section">
+        <div id="map"></div>
+    </section>
+
+    <style>
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 80px;
+            background-color: rgba(23, 23, 168, 0.822);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Profile Popup */
+        .profile-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 1px solid rgba(23, 23, 168, 0.822);
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 20px;
+            width: 80%;
+            height: 150px;
+            max-width: 450px;
+            border-radius: 10px;
+        }
+
+        /* Notification Box */
+        .notification-box {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            width: 300px;
+        }
+
+        .notification-box.active {
+            display: block;
+        }
+
+        .notification-box .close-btn {
+            cursor: pointer;
+            float: right;
+            font-size: 18px;
+            color: #721c24;
+        }
+    </style>
+
+<footer class="footer">
+    <p>(Once the API is set, the details of estimated time and distance will be displayed here)</p>
+</footer>
+
+<style>
+    p{
+        font-size: 18px;
+        margin-top: 40px;
+    }
+</style>
+
+    <div class="profile-popup" id="profile-popup">
+        <div class="popup-content">
+            <span class="close-btn" id="close-popup">&times;</span>
+            <h2>User Profile</h2>
+            <p>ID: <span id="user-id">User12345</span></p>
+            <label for="stop-selection">Choose Stop</label>
+            <select id="stop-selection">
+                <option value="Stop 1">SST Macro Campus</option>
+                <option value="Stop 2">SST Micro Campus</option>
+                <option value="Stop 3">Opto Circuits Ltd</option>
+                <option value="Stop 4">Wipro Ave</option>
+            </select>
+        </div>
+    </div>
+
+    
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([51.505, -0.09], 13);
+
+        // Add a tile layer from Geoapify
+        L.tileLayer(`https://maps.geoapify.com/v1/tile/carto/{z}/{x}/{y}.png?&apiKey=1ea85713ca5a459c89eeaac268cd0f5f`, {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://www.geoapify.com/">Geoapify</a>',
+            maxZoom: 20
+        }).addTo(map);
+
+        // Create a marker and circle for the user's location
+        var userMarker = L.marker([51.505, -0.09]).addTo(map);
+        var userCircle = L.circle([51.505, -0.09], {
+            color: 'blue',
+            fillColor: '#30f',
+            fillOpacity: 0.2,
+            radius: 100
+        }).addTo(map);
+
+        // Function to update the map with the user's location
+        function updateLocation(lat, lng) {
+            var latlng = [lat, lng];
+            userMarker.setLatLng(latlng);
+            userCircle.setLatLng(latlng);
+            map.setView(latlng, 13);
+        }
+
+        // Function to handle geolocation success
+        function onLocationFound(e) {
+            updateLocation(e.coords.latitude, e.coords.longitude);
+        }
+
+        // Function to handle geolocation errors
+        function onLocationError(e) {
+            alert(e.message);
+        }
+
+        // Request the user's location
+        if (navigator.geolocation) {
+            navigator.geolocation.watchPosition(onLocationFound, onLocationError, {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+            });
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+
+        // JavaScript to handle profile popup
+        document.getElementById('profile-icon').addEventListener('click', function() {
+            document.getElementById('profile-popup').style.display = 'block';
+        });
+
+        document.getElementById('close-popup').addEventListener('click', function() {
+            document.getElementById('profile-popup').style.display = 'none';
+        });
+    </script>
+
+    
+</body>
+</html>

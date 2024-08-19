@@ -1,0 +1,315 @@
+/* Basic CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+body, html {
+    height: 100%;
+}
+
+/* Header */
+.header {
+    position: fixed;
+    top: 0;
+    height: 80px;
+    width: 100%;
+    background-color: rgba(23, 23, 168, 0.822);
+    z-index: 100;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 24px;
+    color: white;
+    text-decoration: none;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav_items {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav_links {
+    color: white;
+    text-decoration: none;
+}
+
+.nav_links:hover {
+    color: wheat;
+}
+
+/* Profile Icon */
+.profile-icon {
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* Footer */
+footer {
+    position: fixed;
+    width: 100%;
+    height: 80px;
+    background-color: rgba(23, 23, 168, 0.822);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    bottom: 0;
+}
+
+/* Map Container */
+#map-section {
+    height: calc(100vh - 160px); /* Subtract header and footer height */
+    width: 100%;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+}
+
+/* Profile Popup */
+.profile-popup {
+    display: none;
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+    padding: 20px;
+    width: 300px;
+    border-radius: 10px;
+}
+
+.popup-content {
+    text-align: center;
+}
+
+.close-btn {
+    cursor: pointer;
+    float: right;
+    font-size: 20px;
+}
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Location Tracking with Geoapify and Leaflet</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        /* Reset default styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 80px;
+            background-color: rgba(23, 23, 168, 0.822);
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            flex: 1;
+            text-align: center;
+            margin: 0;
+        }
+
+        .profile-icon {
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: bold;
+            color: rgba(23, 23, 168, 0.822);
+        }
+
+        /* Map Section */
+        #map-section {
+            height: calc(100vh - 160px); /* Adjust height based on header and footer */
+            width: 100%;
+            margin-top: 80px; /* Margin to push map below header */
+            position: relative;
+        }
+
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+
+        /* Footer Styles */
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 80px;
+            background-color: rgba(23, 23, 168, 0.822);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Profile Popup */
+        .profile-popup {
+            display: none;
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -20%);
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 20px;
+            width: 300px;
+            border-radius: 10px;
+        }
+
+        .popup-content {
+            text-align: center;
+        }
+
+        .close-btn {
+            cursor: pointer;
+            float: right;
+            font-size: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 18px;
+            }
+            .profile-icon {
+                width: 40px;
+                height: 40px;
+            }
+            footer {
+                height: 60px;
+                padding: 10px;
+            }
+            .profile-popup {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="profile-icon" id="profile-icon">P</div>
+        <h1>Track Your Bus!</h1>
+    </header>
+
+    <section id="map-section">
+        <div id="map"></div>
+    </section>
+
+    <footer class="footer">
+        <p>Details</p>
+    </footer>
+
+    <div class="profile-popup" id="profile-popup">
+        <div class="popup-content">
+            <span class="close-btn" id="close-popup">&times;</span>
+            <h2>User Profile</h2>
+            <p>Name: <span id="user-name"></span></p>
+            <label for="stop-selection">Choose Stop</label>
+            <select id="stop-selection">
+                <option value="Stop 1">Macro Campus</option>
+                <option value="Stop 2">Micro Campus</option>
+            </select>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([51.505, -0.09], 13);
+
+        // Add a tile layer from Geoapify
+        L.tileLayer(`https://maps.geoapify.com/v1/tile/carto/{z}/{x}/{y}.png?&apiKey=1ea85713ca5a459c89eeaac268cd0f5f`, {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://www.geoapify.com/">Geoapify</a>',
+            maxZoom: 20
+        }).addTo(map);
+
+        // Create a marker and circle for the user's location
+        var userMarker = L.marker([51.505, -0.09]).addTo(map);
+        var userCircle = L.circle([51.505, -0.09], {
+            color: 'blue',
+            fillColor: '#30f',
+            fillOpacity: 0.2,
+            radius: 100
+        }).addTo(map);
+
+        // Function to update the map with the user's location
+        function updateLocation(lat, lng) {
+            var latlng = [lat, lng];
+            userMarker.setLatLng(latlng);
+            userCircle.setLatLng(latlng);
+            map.setView(latlng, 13);
+        }
+
+        // Function to handle geolocation success
+        function onLocationFound(e) {
+            updateLocation(e.coords.latitude, e.coords.longitude);
+        }
+
+        // Function to handle geolocation errors
+        function onLocationError(e) {
+            alert(e.message);
+        }
+
+        // Request the user's location
+        if (navigator.geolocation) {
+            navigator.geolocation.watchPosition(onLocationFound, onLocationError, {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+            });
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    </script>
+</body>
+</html> -->
