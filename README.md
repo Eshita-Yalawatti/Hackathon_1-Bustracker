@@ -9,12 +9,13 @@ But the profile popup changes. User get to change their desired bus stop. Admin 
 
 
 
-The concept behind the website is to - fetch the admin's (supposedly bus driver's) location
-                                     - display the admin's location on both the admin as well as user interface
-                                     - collect the bus stop preference of the user
-                                     - pin the preferred bus stop unique to each user on the map
-                                     - calculate and display the estimated time for the bus to reach the user's preferred stop
-                                     - notify the users about the updates by the admin
+The concept behind the website is to 
+- fetch the admin's (supposedly bus driver's) location
+- display the admin's location on both the admin as well as user interface
+- collect the bus stop preference of the user
+- pin the preferred bus stop unique to each user on the map
+- calculate and display the estimated time for the bus to reach the user's preferred stop
+- notify the users about the updates by the admin
 
                                   
 Features of the current website are :
@@ -26,8 +27,13 @@ Features of the current website are :
 
 
 Features under development are :
+
 - live location mapping of the admin
+
 - pining of the preferred bus stops which is unique to every user
+
 - calculating and displaying the estimated time taken by the bus to reach the preferred bus stop
+
 - notification is sent to the admin panel but sending it to the users interface is under development
+
 - store the data of login, preferrred bus stops, etc in the local storage
