@@ -1,11 +1,14 @@
 # Hackathon_1-Bustracker
-This website is all about tracking a bus through its live location. Users can login and access the live loaction of the bus they wish to aboard.
+This website is all about tracking a bus through its live location. Users can login and access the live location of the bus they wish to aboard.
+
+
 Navigation:
 The first page is for login/signup. (the login credentials set for now are email:eshita and password:eshita123)
 The first page also has login for admin. (the login credentials set for now are username:admin and password:admin)
-Here the interfaces get changed for admin and user. 
 The display of live location tracking will be same for user interface and admin interface.
-But the profile popup changes. User get to change their desired bus stop. Admin can inform the users about any delays/ updates in the form of notifications.
+Here the interface gets changed for admin and user.
+The profile popup changes. User gets to change their desired bus stop. 
+Admin can inform the users about any delays/ updates in the form of notifications.
 
 
 
