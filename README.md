@@ -18,7 +18,9 @@ The concept behind the website is to - fetch the admin's (supposedly bus driver'
 
                                   
 Features of the current website are :
+
 -Admin login- the bus driver is given the admin access with which he can give updates to the users in the form of notifications.
+
 -User login- users can signup/ login to access the display of the bus's live location(static for now). The users have a profile popup where 
  they can change their desired bus stop.
 
